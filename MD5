@@ -1,0 +1,12 @@
+3d8da9273fce9f91bfa26f0ee5456954 *DESCRIPTION
+35622ae78036fab7ed9e411d0d760189 *NAMESPACE
+e92fc5c5d23d247c304088abbbafb2f7 *R/SlidingWindows.R
+1cd5e0ba6922648d6ed097526f76a37c *R/descritive_statistics_SlidingWindows.R
+27b525b6949d86c4f258bb913b52660c *R/dfa_SlidingWindows.R
+9effbb9144dfde158654b64c347638a3 *R/dmc_SlidingWindows.R
+4c6b503baa5b322ef0faf434405b37fd *R/rhodcca_SlidingWindows.R
+c349db5569ff77c9196dc59b6e8f7932 *man/SlidingWindows.Rd
+e71db32a699bfcd645db11cd74d97aee *man/descritive_statsistics_SlidingWindows.Rd
+9cd49cca6352bea33163d2b3607495aa *man/dfa_SlidingWindows.Rd
+95afe2a35fd795c8452097d15653d219 *man/dmc_SlidingWindows.Rd
+e9da6205cd6f5fb9843e9a2feae8a4dc *man/rhodcca_SlidingWindows.Rd
