@@ -1,9 +1,9 @@
 Package: SlidingWindows
 Type: Package
 Title: Methods for Time Series Analysis
-Description: A collection of functions to perform Detrended Fluctuation Analysis (DFA exponent), GUEDES et al. (2019) <doi:10.1016/j.physa.2019.04.132> , Detrended cross-correlation coefficient (RHODCCA), GUEDES & ZEBENDE (2019) <doi:10.1016/j.physa.2019.121286>, and Detrended Multiple cross-correlation coefficient (DMC), ZEBENDE & SILVA-FILHO (2018) <doi:10.1016/j.physa.2018.06.119>, both with sliding windows approach. 
-Version: 0.1.4
-Date: 2020-09-11
+Description: A collection of functions to perform Detrended Fluctuation Analysis (DFA exponent), GUEDES et al. (2019) <doi:10.1016/j.physa.2019.04.132> , Detrended cross-correlation coefficient (RHODCCA), GUEDES & ZEBENDE (2019) <doi:10.1016/j.physa.2019.121286>, and Multiple Detrended cross-correlation coefficient (DMC), ZEBENDE & SILVA-FILHO (2018) <doi:10.1016/j.physa.2018.06.119>, both with sliding windows approach. 
+Version: 0.1.5
+Date: 2020-10-30
 Authors@R: c(person("Everaldo Freitas","Guedes",
                      email = "efgestatistico@gmail.com", 
                      role = c("aut","cre"),  
@@ -27,10 +27,11 @@ BugReports: https://github.com/efguedes/SlidingWindows
 NeedsCompilation: no
 Encoding: UTF-8
 LazyData: true
-Imports: stats, DCCA, PerformanceAnalytics, nonlinearTseries
+Imports: stats, DCCA, PerformanceAnalytics, nonlinearTseries,
+        TSEntropies
 Suggests: xts, zoo, quantmod
 RoxygenNote: 7.1.1
-Packaged: 2020-09-11 14:46:25 UTC; Everaldo Guedes
+Packaged: 2020-10-29 18:17:31 UTC; Everaldo Guedes
 Author: Everaldo Freitas Guedes [aut, cre]
     (<https://orcid.org/0000-0002-2986-7367>),
   Ivan Costa da Cunha Lima [aut]
@@ -39,4 +40,4 @@ Author: Everaldo Freitas Guedes [aut, cre]
   Aloísio Machado Silva-Filho [aut]
     (<https://orcid.org/0000-0001-8250-1527>)
 Repository: CRAN
-Date/Publication: 2020-09-21 08:30:03 UTC
+Date/Publication: 2020-10-29 18:50:06 UTC

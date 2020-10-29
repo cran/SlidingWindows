@@ -1,17 +1,17 @@
 #' @title Detrended Fluctuation Analysis with sliding windows.
 #'
-#' @description This function generates scaling exponents (long-range correlations) of
-#' a univariate time series with sliding windows approach.
+#' @description This function generates scaling exponents (long-range correlations) of a univariate time series with sliding windows approach.
 #'
-#' @details This function include following measures:
+#' @details This function include following measures: alpha_dfa, se_alpha_dfa, r2_alpha_dfa.
 #'
-#'     alpha_dfa, se_alpha_dfa, r2_alpha_dfa.
+#' @param y A vector containing univariate time series.
 #'
-#' @param y A vector contaning univariate time series.
-#' @param w an integer value indicating the size of the window \eqn{w < length(y)}.
+#' @param w An integer value indicating the window size \eqn{w < length(y)}.
 #'          If \eqn{w = length(y)}, will be computed the function will not slide.
-#' @param k an integer value indicating the boundary of the division \eqn{(N/k)}.
+#'
+#' @param k An integer value indicating the boundary of the division \eqn{(N/k)}.
 #'          The smallest value of \eqn{k} is \eqn{4}.
+#'
 #' @param npoints The number of different window sizes that will be used to estimate the Fluctuation function in each zone. See nonlinearTseries package.
 #'
 #' @return A list contaning "w", "alpha_dfa", "se_alpha_dfa", "r2_alpha_dfa".
@@ -45,9 +45,9 @@ dfa_SlidingWindows <- function(y,w,k,npoints){
                                window.size.range=c(4,round(w/k,0)),
                                npoints=npoints,
                                do.plot=FALSE)
-             model <- lm(log10(dfa$fluctuation.function)~log10(dfa$window.sizes))
-         alpha_dfa <- coef(summary(model))[2, "Estimate"]
-      se_alpha_dfa <- coef(summary(model))[2, "Std. Error"]
+             model <- stats::lm(log10(dfa$fluctuation.function)~log10(dfa$window.sizes))
+         alpha_dfa <- stats::coef(summary(model))[2, "Estimate"]
+      se_alpha_dfa <- stats::coef(summary(model))[2, "Std. Error"]
       r2_alpha_dfa <- summary(model)$r.squared
   return(list(alpha_dfa=alpha_dfa, se_alpha_dfa=se_alpha_dfa, r2_alpha_dfa=r2_alpha_dfa))
   }
@@ -62,9 +62,9 @@ dfa_SlidingWindows <- function(y,w,k,npoints){
                                window.size.range=c(4,round(w/k,0)),
                                npoints=npoints,
                                do.plot=FALSE)
-               model <- lm(log10(dfa$fluctuation.function)~log10(dfa$window.sizes))
-        alpha_dfa[i] <- coef(summary(model))[2, "Estimate"]
-     se_alpha_dfa[i] <- coef(summary(model))[2, "Std. Error"]
+               model <- stats::lm(log10(dfa$fluctuation.function)~log10(dfa$window.sizes))
+        alpha_dfa[i] <- stats::coef(summary(model))[2, "Estimate"]
+     se_alpha_dfa[i] <- stats::coef(summary(model))[2, "Std. Error"]
      r2_alpha_dfa[i] <- summary(model)$r.squared
   }
   return(list(window = w, alpha_dfa=alpha_dfa, se_alpha_dfa=se_alpha_dfa, r2_alpha_dfa=r2_alpha_dfa))

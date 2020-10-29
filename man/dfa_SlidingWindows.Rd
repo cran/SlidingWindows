@@ -7,12 +7,12 @@
 dfa_SlidingWindows(y, w, k, npoints)
 }
 \arguments{
-\item{y}{A vector contaning univariate time series.}
+\item{y}{A vector containing univariate time series.}
 
-\item{w}{an integer value indicating the size of the window \eqn{w < length(y)}.
+\item{w}{An integer value indicating the window size \eqn{w < length(y)}.
 If \eqn{w = length(y)}, will be computed the function will not slide.}
 
-\item{k}{an integer value indicating the boundary of the division \eqn{(N/k)}.
+\item{k}{An integer value indicating the boundary of the division \eqn{(N/k)}.
 The smallest value of \eqn{k} is \eqn{4}.}
 
 \item{npoints}{The number of different window sizes that will be used to estimate the Fluctuation function in each zone. See nonlinearTseries package.}
@@ -21,13 +21,10 @@ The smallest value of \eqn{k} is \eqn{4}.}
 A list contaning "w", "alpha_dfa", "se_alpha_dfa", "r2_alpha_dfa".
 }
 \description{
-This function generates scaling exponents (long-range correlations) of
-a univariate time series with sliding windows approach.
+This function generates scaling exponents (long-range correlations) of a univariate time series with sliding windows approach.
 }
 \details{
-This function include following measures:
-
-    alpha_dfa, se_alpha_dfa, r2_alpha_dfa.
+This function include following measures: alpha_dfa, se_alpha_dfa, r2_alpha_dfa.
 }
 \examples{
 y <- rnorm(100)

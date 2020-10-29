@@ -1,22 +1,24 @@
-#' @title Detrended Multiple Cross-Correlation Coefficient with sliding windows.
+#' @title Multiple detrended cross-correlation coefficient with sliding windows.
 #
-#' @description This function generates Detrended Cross-Correlation Coefficient of
-#' three time series with sliding windows approach.
+#' @description This function generates DMC Coefficient of three time series with sliding windows approach.
 #'
-#' @details This function include following measures:
+#' @details This function include following measures: w, timescale, dmc, rhodcca_yx1, rhodcca_yx2, rhodcca_x1x2
 #'
-#'     w, timescale, dmc, rhodcca_yx1, rhodcca_yx2, rhodcca_x1x2
+#' @param x1 A vector containing univariate time series.
 #'
-#' @param x1 A vector contaning univariate time series.
-#' @param x2 A vector contaning univariate time series.
-#' @param y A vector contaning univariate time series.
-#' @param w An integer value indicating the size of the window \eqn{w < length(y)}.
+#' @param x2 A vector containing univariate time series.
+#'
+#' @param y A vector containing univariate time series.
+#'
+#' @param w An integer value indicating the window size \eqn{w < length(y)}.
 #'          If \eqn{w = length(y)}, will be computed the function will not slide.
+#'
 #' @param k An integer value indicating the boundary of the division \eqn{(N/k)}.
 #'          The smallest value of \eqn{k} is \eqn{4}.
+#'
 #' @param nu An integer value. See the DCCA package.
 #'
-#' @return A list contaning "w", "dmc", "rhodcca_yx1", "rhodcca_yx2", "rhodcca_x1x2".
+#' @return A list containing "w", "dmc", "rhodcca_yx1", "rhodcca_yx2", "rhodcca_x1x2".
 #'
 #' @examples
 #' x1 <- rnorm(100)
@@ -25,7 +27,7 @@
 #' dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0)
 #'
 #' @references
-#' ZEBENDE, G.F.; SILVA-FILHO, A.M. Detrended Multiple Cross-Correlation Coefficient. PHYSICA A, v.510, p.91-97, 2018. doi = "https://doi.org/10.1016/j.physa.2018.06.119".
+#' SILVA-FILHO,A.M; ZEBENDE,G.; CASTRO,A.P.; GUEDES,E. Statistical test for multiple detrended cross-correlation coefficient, Physica A, v.562, 125285, 2021.
 #'
 #' @importFrom DCCA rhodcca
 #'

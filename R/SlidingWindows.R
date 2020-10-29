@@ -4,11 +4,12 @@
 #'
 #' @details This function return the matrix with time series sliding windows.
 #'
-#' @param y A vector contaning univariate time series.
-#' @param w An integer value indicating the size of the window \eqn{w < length(y)}.
+#' @param y A vector containing univariate time series.
+#'
+#' @param w An integer value indicating the window size \eqn{w < length(y)}.
 #'          If \eqn{w = length(y)}, will be computed the function will not slide.
 #'
-#' @return A list contaning "w", "SlidingWindows".
+#' @return A list containing "w", "SlidingWindows".
 #'
 #' @examples
 #' y <- rnorm(100)

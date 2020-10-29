@@ -7,13 +7,13 @@
 SlidingWindows(y, w)
 }
 \arguments{
-\item{y}{A vector contaning univariate time series.}
+\item{y}{A vector containing univariate time series.}
 
-\item{w}{An integer value indicating the size of the window \eqn{w < length(y)}.
+\item{w}{An integer value indicating the window size \eqn{w < length(y)}.
 If \eqn{w = length(y)}, will be computed the function will not slide.}
 }
 \value{
-A list contaning "w", "SlidingWindows".
+A list containing "w", "SlidingWindows".
 }
 \description{
 This function generates sliding windows approach of a time series.

@@ -7,15 +7,19 @@
 #'
 #'     w, timescale, rhodcca
 #'
-#' @param x A vector contaning univariate time series.
-#' @param y A vector contaning univariate time series.
-#' @param w An integer value indicating the size of the window \eqn{w < length(y)}.
+#' @param x A vector containing univariate time series.
+#'
+#' @param y A vector containing univariate time series.
+#'
+#' @param w An integer value indicating the window size \eqn{w < length(y)}.
 #'          If \eqn{w = length(y)}, will be computed the function will not slide.
+#'
 #' @param k An integer value indicating the boundary of the division \eqn{(N/k)}.
 #'          The smallest value of \eqn{k} is \eqn{4}.
+#'
 #' @param nu An integer value. See DCCA package.
 #'
-#' @return A list contaning "w", "timescale", "rhodcca".
+#' @return A list containing "w", "timescale", "rhodcca".
 #'
 #' @examples
 #' x <- rnorm(100)
@@ -65,4 +69,3 @@ rhodcca_SlidingWindows <- function(x,y,w,k,nu){
   return(list(w = w, timescale=m, rhodcca=rho))
   }
 }
-path.expand("~/teste/SlidingWindows")

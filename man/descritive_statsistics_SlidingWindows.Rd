@@ -12,9 +12,9 @@ descritive_statsistics_SlidingWindows(
 )
 }
 \arguments{
-\item{y}{A vector contaning univariate time series.}
+\item{y}{A vector containing univariate time series.}
 
-\item{w}{An integer value indicating the size of the window \eqn{w < length(y)}.
+\item{w}{An integer value indicating the window size \eqn{w < length(y)}.
 If \eqn{w = length(y)}, will be computed the function will not slide.}
 
 \item{skewness}{A non-numeric value. See PerformanceAnalytics package.}
@@ -22,16 +22,13 @@ If \eqn{w = length(y)}, will be computed the function will not slide.}
 \item{kurtosis}{A non-numeric value. See PerformanceAnalytics package.}
 }
 \value{
-A list contaning "w", "mean", "median", "standard deviation","skewness" and "kurtosis".
+A list containing "w", "min","max","mean", "median", "standard deviation","skewness" and "kurtosis".
 }
 \description{
-This function generates descritive statistics of
-a univariate time serieswith sliding windows approach.
+This function generates descriptive statistics of a univariate time series with sliding windows approach.
 }
 \details{
-This function include following measures:
-
-mean. median, standard deviation, skewness and kurtosis.
+This function include following measures: min, max, mean, median, standard deviation, skewness and kurtosis.
 }
 \examples{
 y <- rnorm(1000)

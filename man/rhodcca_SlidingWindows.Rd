@@ -7,11 +7,11 @@
 rhodcca_SlidingWindows(x, y, w, k, nu)
 }
 \arguments{
-\item{x}{A vector contaning univariate time series.}
+\item{x}{A vector containing univariate time series.}
 
-\item{y}{A vector contaning univariate time series.}
+\item{y}{A vector containing univariate time series.}
 
-\item{w}{An integer value indicating the size of the window \eqn{w < length(y)}.
+\item{w}{An integer value indicating the window size \eqn{w < length(y)}.
 If \eqn{w = length(y)}, will be computed the function will not slide.}
 
 \item{k}{An integer value indicating the boundary of the division \eqn{(N/k)}.
@@ -20,7 +20,7 @@ The smallest value of \eqn{k} is \eqn{4}.}
 \item{nu}{An integer value. See DCCA package.}
 }
 \value{
-A list contaning "w", "timescale", "rhodcca".
+A list containing "w", "timescale", "rhodcca".
 }
 \description{
 This function generates Detrended Cross-Correlation Coefficient of

@@ -1,19 +1,19 @@
 #' @title Descritive statistics with sliding windows.
 #'
-#' @description This function generates descritive statistics of
-#' a univariate time serieswith sliding windows approach.
+#' @description This function generates descriptive statistics of a univariate time series with sliding windows approach.
 #'
-#' @details This function include following measures:
+#' @details This function include following measures: min, max, mean, median, standard deviation, skewness and kurtosis.
 #'
-#' mean. median, standard deviation, skewness and kurtosis.
+#' @param y A vector containing univariate time series.
 #'
-#' @param y A vector contaning univariate time series.
-#' @param w An integer value indicating the size of the window \eqn{w < length(y)}.
+#' @param w An integer value indicating the window size \eqn{w < length(y)}.
 #'          If \eqn{w = length(y)}, will be computed the function will not slide.
+#'
 #' @param skewness A non-numeric value. See PerformanceAnalytics package.
+#'
 #' @param kurtosis A non-numeric value. See PerformanceAnalytics package.
 #'
-#' @return A list contaning "w", "mean", "median", "standard deviation","skewness" and "kurtosis".
+#' @return A list containing "w", "min","max","mean", "median", "standard deviation","skewness" and "kurtosis".
 #'
 #' @examples
 #' y <- rnorm(1000)
@@ -35,18 +35,21 @@
     stop("The window needs to be smaller than the series length")
   }
   sw <- SlidingWindows(y,w)
+  min_sw <- c()
+  max_sw <- c()
   mean_sw <- c()
   median_sw <- c()
   sd_sw <- c()
   skewness_sw <- c()
   kurtosis_sw <- c()
   for(i in 1:nrow(sw)){
+      min_sw[i] <-  min(sw[i,])
+      max_sw[i] <-  max(sw[i,])
       mean_sw[i] <- mean(sw[i,])
     median_sw[i] <- stats::median(sw[i,])
-        sd_sw[i] <- stats::sd(sw[i,])
-  skewness_sw[i] <- PerformanceAnalytics::skewness(sw[i,], method=skewness)
+        sd_sw[i] <- PerformanceAnalytics::skewness(sw[i,], method=skewness)
   kurtosis_sw[i] <- PerformanceAnalytics::kurtosis(sw[i,], method=kurtosis)
   }
-  return(list(w = w, mean_SlidingWindows=mean_sw, median_SlidingWindows=median_sw, sd_SlidingWindows=sd_sw, skewness_SlidingWindows= skewness_sw, kurtosis_SlidingWindows=kurtosis_sw))
+  return(list(w = w, min=min_sw, max=max_sw,mean=mean_sw, median=median_sw, sd=sd_sw, skewness= skewness_sw, kurtosis=kurtosis_sw))
 }
 path.expand("~/teste/SlidingWindows")
