@@ -16,7 +16,7 @@
 #'
 #' @param r The radius of searched areas. See TSEntropies package.
 #'
-#' @param lag - The downsampling. See TSEntropies r package.
+#' @param lag The downsampling. See TSEntropies r package.
 #'
 #' @return A list contaning "w", "ApEn", "FastApEn", "SampEn".
 #'
@@ -28,6 +28,7 @@
 #' Pincus, S.M. (1991). Approximate entropy as a measure of system complexity. Proc. Natl. Acad. Sci. USA, Vol. 88, pp. 2297–2301.
 #'
 #' @importFrom TSEntropies ApEn FastApEn SampEn
+#' @importFrom stats sd
 #'
 #' @export
 entropy_SlidingWindows <- function(y,w,k,dim,r,lag){
@@ -58,9 +59,9 @@ entropy_SlidingWindows <- function(y,w,k,dim,r,lag){
 
       for(j in 1:nrow(ny)){
 
-        r3[j] <-       TSEntropies::ApEn(ny[j,], dim = dim, lag = lag, r = r*sd(ny[j,]))
-        r4[j] <-   TSEntropies::FastApEn(ny[j,], dim = dim, lag = lag, r = r*sd(ny[j,]))
-        r5[j] <-     TSEntropies::SampEn(ny[j,], dim = dim, lag = lag, r = r*sd(ny[j,]))
+        r3[j] <-     TSEntropies::ApEn(ny[j,], dim = dim, lag = lag, r = r*stats::sd(ny[j,]))
+        r4[j] <- TSEntropies::FastApEn(ny[j,], dim = dim, lag = lag, r = r*stats::sd(ny[j,]))
+        r5[j] <-   TSEntropies::SampEn(ny[j,], dim = dim, lag = lag, r = r*stats::sd(ny[j,]))
 
       }
 
@@ -87,15 +88,16 @@ entropy_SlidingWindows <- function(y,w,k,dim,r,lag){
      r3 <- c()
      r4 <- c()
      r5 <- c()
-     ApEn <- c()
-     FastApEn <- c()
-     SampEn <- c()
+  ApEn <- matrix(data = NA, nrow = nrow(sw), ncol = length(n), byrow = TRUE)
+ FastApEn <- matrix(data = NA, nrow = nrow(sw), ncol = length(n), byrow = TRUE)
+  SampEn <- matrix(data = NA, nrow = nrow(sw), ncol = length(n), byrow = TRUE)
 
+for(h in 1:nrow(sw)){
   for(i in 1:length(n)){
     ## Divide in to overlapping boxes of size n
-    ny <- SlidingWindows(sw, n[i])
+    ny <- SlidingWindows(sw[h,], n[i])
 
-    for(j in 1:nrow(sw)){
+    for(j in 1:nrow(ny)){
 
       r3[j] <-       TSEntropies::ApEn(ny[j,], dim = dim, lag = lag, r = r*sd(ny[j,]))
       r4[j] <-   TSEntropies::FastApEn(ny[j,], dim = dim, lag = lag, r = r*sd(ny[j,]))
@@ -103,17 +105,19 @@ entropy_SlidingWindows <- function(y,w,k,dim,r,lag){
 
     }
 
-        ApEn[i] <- mean(r3)
-    FastApEn[i] <- mean(r4)
-      SampEn[i] <- mean(r5)
+        ApEn[h, i] <- mean(r3)
+    FastApEn[h, i] <- mean(r4)
+      SampEn[h, i] <- mean(r5)
 
     ny <- NULL
-  }
 
+   }
+  }
   return(list(window = w,
               timescale = n,
               ApEn=ApEn,
               FastApEn=FastApEn,
-              SampEn = SampEn)) }
+              SampEn=SampEn))
+  }
 }
 

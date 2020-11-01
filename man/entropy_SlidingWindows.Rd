@@ -19,7 +19,7 @@ The smallest value of \eqn{k} is \eqn{4}.}
 
 \item{r}{The radius of searched areas. See TSEntropies package.}
 
-\item{lag}{- The downsampling. See TSEntropies r package.}
+\item{lag}{The downsampling. See TSEntropies r package.}
 }
 \value{
 A list contaning "w", "ApEn", "FastApEn", "SampEn".
