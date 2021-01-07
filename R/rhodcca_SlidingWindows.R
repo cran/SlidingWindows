@@ -27,7 +27,9 @@
 #' rhodcca_SlidingWindows(x,y,w=99,k=10,nu=0)
 #'
 #' @references
-#' GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019. doi = "https://doi.org/10.1016/j.physa.2019.121286".
+#' GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019.
+#'
+#' ZEBENDE, G.F. DCCA cross-correlation coefficient: Quantifying level of cross-correlation, Physica A, v. 390, n. 4, p. 614-618, 2011.
 #'
 #' @importFrom DCCA rhodcca
 #'

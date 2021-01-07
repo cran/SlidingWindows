@@ -52,8 +52,8 @@ dmca_SlidingWindows <- function(x,y,w,k){
     yy <- cumsum(y)
 
     mm <- c(rep(1,n))/n
-    mm_x <- filter(xx,mm)
-    mm_y <- filter(yy,mm)
+    mm_x <- stats::filter(xx,mm)
+    mm_y <- stats::filter(yy,mm)
 
     F2_xy <- mean((xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))]*(yy-mm_y)[(1+floor(n/2)):(length(yy)-floor(n/2))])
     F2_xx <- mean((xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))]*(xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))])
@@ -81,6 +81,6 @@ dmca_SlidingWindows <- function(x,y,w,k){
         yx[i,j] <- dmca(y_sw[i,], x_sw[i,], n=n[j])
       }
 	}
-  return(list(w = w, timescale=n, rhodcca=yx))
+  return(list(w = w, timescale=n, dmca=yx))
   }
 }

@@ -29,7 +29,7 @@
     descritive_SlidingWindows <- function(y,w, skewness=c("moment","sample","fisher"), kurtosis=c("moment","sample","fisher", "excess", "sample_excess")){
       if(!(is.null(y) || is.numeric(y) || is.logical(y))){
     stop("Time series must be numeric")
-   }
+      }
   N <- length(y)
   if(w > N){
     stop("The window needs to be smaller than the series length")
@@ -43,13 +43,13 @@
   skewness_sw <- c()
   kurtosis_sw <- c()
   for(i in 1:nrow(sw)){
-      min_sw[i] <-  min(sw[i,])
-      max_sw[i] <-  max(sw[i,])
+       min_sw[i] <-  min(sw[i,])
+       max_sw[i] <-  max(sw[i,])
       mean_sw[i] <- mean(sw[i,])
+        sd_sw[i] <- stats::sd(sw[i,])
     median_sw[i] <- stats::median(sw[i,])
-        sd_sw[i] <- PerformanceAnalytics::skewness(sw[i,], method=skewness)
+  skewness_sw[i] <- PerformanceAnalytics::skewness(sw[i,], method=skewness)
   kurtosis_sw[i] <- PerformanceAnalytics::kurtosis(sw[i,], method=kurtosis)
   }
   return(list(w = w, min=min_sw, max=max_sw,mean=mean_sw, median=median_sw, sd=sd_sw, skewness= skewness_sw, kurtosis=kurtosis_sw))
 }
-path.expand("~/teste/SlidingWindows")

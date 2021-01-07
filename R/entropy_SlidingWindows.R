@@ -12,11 +12,11 @@
 #' @param k An integer value indicating the boundary of the division \eqn{(N/k)}.
 #'          The smallest value of \eqn{k} is \eqn{4}.
 #'
-#' @param dim The dimension of given time series. See TSEntropies r package.
+#' @param dim The dimension of given time series. See TSEntropies package.
 #'
 #' @param r The radius of searched areas. See TSEntropies package.
 #'
-#' @param lag The downsampling. See TSEntropies r package.
+#' @param lag The downsampling. See TSEntropies package.
 #'
 #' @return A list contaning "w", "ApEn", "FastApEn", "SampEn".
 #'

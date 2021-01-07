@@ -4,7 +4,7 @@
 \alias{dmc_SlidingWindows}
 \title{Multiple detrended cross-correlation coefficient with sliding windows.}
 \usage{
-dmc_SlidingWindows(x1, x2, y, w, k, nu)
+dmc_SlidingWindows(x1, x2, y, w, k, method, nu)
 }
 \arguments{
 \item{x1}{A vector containing univariate time series.}
@@ -19,24 +19,33 @@ If \eqn{w = length(y)}, will be computed the function will not slide.}
 \item{k}{An integer value indicating the boundary of the division \eqn{(N/k)}.
 The smallest value of \eqn{k} is \eqn{4}.}
 
+\item{method}{A character string indicating which correlation coefficient is to be used. If method = "rhodcca" the dmc coefficient is generated from the DCCA coefficient. If method = "dmca", the dmc coefficient is generated from the DMCA coefficient.}
+
 \item{nu}{An integer value. See the DCCA package.}
 }
 \value{
-A list containing "w", "dmc", "rhodcca_yx1", "rhodcca_yx2", "rhodcca_x1x2".
+A list containing "w", "dmc", "yx1", "yx2", "x1x2".
 }
 \description{
 This function generates DMC Coefficient of three time series with sliding windows approach.
 }
 \details{
-This function include following measures: w, timescale, dmc, rhodcca_yx1, rhodcca_yx2, rhodcca_x1x2
+This function include following measures: w, timescale, dmc and cross-correlation between: yx1, yx2, x1x2
 }
 \examples{
 x1 <- rnorm(100)
 x2 <- rnorm(100)
 y <- rnorm(100)
-dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0)
+dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="rhodcca")
+dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="dmca")
 
 }
 \references{
-SILVA-FILHO,A.M; ZEBENDE,G.; CASTRO,A.P.; GUEDES,E. Statistical test for multiple detrended cross-correlation coefficient, Physica A, v.562, 125285, 2021.
+ZEBENDE, G.; SILVA-FILHO, A.M. Detrended multiple cross-correlation coefficient, Physica A 510, 91-97, 2018.
+
+GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019.
+
+ZEBENDE, G.F. DCCA cross-correlation coefficient: Quantifying level of cross-correlation, Physica A, v. 390, n. 4, p. 614-618, 2011.
+
+KRISTOUFEK, L. Detrending moving-average cross-correlation coefficient: Measuring cross-correlations between non-stationary series. PHYSICA A, v.406, p.169-175, 2014.
 }

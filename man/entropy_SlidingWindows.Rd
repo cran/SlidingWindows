@@ -15,11 +15,11 @@ If \eqn{w = length(y)}, will be computed the function will not slide.}
 \item{k}{An integer value indicating the boundary of the division \eqn{(N/k)}.
 The smallest value of \eqn{k} is \eqn{4}.}
 
-\item{dim}{The dimension of given time series. See TSEntropies r package.}
+\item{dim}{The dimension of given time series. See TSEntropies package.}
 
 \item{r}{The radius of searched areas. See TSEntropies package.}
 
-\item{lag}{The downsampling. See TSEntropies r package.}
+\item{lag}{The downsampling. See TSEntropies package.}
 }
 \value{
 A list contaning "w", "ApEn", "FastApEn", "SampEn".
