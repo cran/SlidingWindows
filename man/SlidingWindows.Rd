@@ -4,7 +4,7 @@
 \alias{SlidingWindows}
 \title{Sliding Windows.}
 \usage{
-SlidingWindows(y, w)
+SlidingWindows(y, w = 99)
 }
 \arguments{
 \item{y}{A vector containing univariate time series.}

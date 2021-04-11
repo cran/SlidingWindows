@@ -24,17 +24,17 @@
 #' @examples
 #' x <- rnorm(100)
 #' y <- rnorm(100)
-#' rhodcca_SlidingWindows(x,y,w=99,k=10,nu=0)
+#' rhodcca.SlidingWindows(x,y,w=99,k=10,nu=0)
 #'
 #' @references
-#' GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019.
+#' GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019. doi="doi.org/10.1016/j.physa.2010.10.022".
 #'
-#' ZEBENDE, G.F. DCCA cross-correlation coefficient: Quantifying level of cross-correlation, Physica A, v. 390, n. 4, p. 614-618, 2011.
+#' ZEBENDE, G.F. DCCA cross-correlation coefficient: Quantifying level of cross-correlation, Physica A, v. 390, n. 4, p. 614-618, 2011. doi="doi.org/10.1016/j.physa.2019.121286".
 #'
 #' @importFrom DCCA rhodcca
 #'
 #' @export
-rhodcca_SlidingWindows <- function(x,y,w,k,nu){
+rhodcca.SlidingWindows <- function(x,y,w=98,k=10,nu=0){
  if(!(is.null(y) || is.numeric(y) || is.logical(y))){
     stop("Time series must be numeric")
 	}

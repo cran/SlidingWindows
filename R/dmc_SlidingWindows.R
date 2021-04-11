@@ -1,4 +1,4 @@
-#' @title Multiple detrended cross-correlation coefficient with sliding windows.
+#' @title Detrended multiple cross-correlation coefficient with sliding windows.
 #
 #' @description This function generates DMC Coefficient of three time series with sliding windows approach.
 #'
@@ -16,7 +16,7 @@
 #' @param k An integer value indicating the boundary of the division \eqn{(N/k)}.
 #'          The smallest value of \eqn{k} is \eqn{4}.
 #'
-#'@param method A character string indicating which correlation coefficient is to be used. If method = "rhodcca" the dmc coefficient is generated from the DCCA coefficient. If method = "dmca", the dmc coefficient is generated from the DMCA coefficient.
+#'@param method A character string indicating which correlation coefficient is to be used. If method = "rhodcca" (default) the dmc coefficient is generated from the DCCA coefficient. If method = "dmca", the dmc coefficient is generated from the DMCA coefficient.
 #'
 #' @param nu An integer value. See the DCCA package.
 #'
@@ -26,40 +26,36 @@
 #' x1 <- rnorm(100)
 #' x2 <- rnorm(100)
 #' y <- rnorm(100)
-#' dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="rhodcca")
-#' dmc_SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="dmca")
+#' dmc.SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="rhodcca")
+#' dmc.SlidingWindows(x1,x2,y,w=99,k=10,nu=0, method="dmca")
 #'
 #' @references
-#' ZEBENDE, G.; SILVA-FILHO, A.M. Detrended multiple cross-correlation coefficient, Physica A 510, 91-97, 2018.
+#' ZEBENDE, G.; SILVA-FILHO, A.M. Detrended multiple cross-correlation coefficient, Physica A 510, 91-97, 2018. doi="doi.org/10.1016/j.physa.2018.06.119".
 #'
-#' GUEDES, E.F.; ZEBENDE, G.F. DCCA cross-correlation coefficient with sliding windows approach. PHYSICA A, v.527, p.121286, 2019.
-#'
-#' ZEBENDE, G.F. DCCA cross-correlation coefficient: Quantifying level of cross-correlation, Physica A, v. 390, n. 4, p. 614-618, 2011.
-#'
-#' KRISTOUFEK, L. Detrending moving-average cross-correlation coefficient: Measuring cross-correlations between non-stationary series. PHYSICA A, v.406, p.169-175, 2014.
+#' GUEDES,E.F.;SILVA-FILHO, A.M.; ZEBENDE, G.F. Detrended multiple cross-correlation coefficient with sliding windows approach. Physica A, 125990, 2021. doi="doi.org/10.1016/j.physa.2021.125990".
 #'
 #' @importFrom DCCA rhodcca
 #' @importFrom stats filter
 #'
 #' @export
-dmc_SlidingWindows <- function(x1,x2,y,w,k,method,nu){
+dmc.SlidingWindows <- function(x1,x2,y,w=98,k=10,method="rhodcca",nu=0){
 
    N1 <- length(x1)
    N2 <- length(x2)
    N3 <- length(y)
-    n <- 4:round(w/k,0)
+    m <- 4:round(w/k,0)
 
-   dmca <- function(x,y,n){
+   dmca <- function(x,y,m){
      xx <- cumsum(x)
      yy <- cumsum(y)
 
-     mm <- c(rep(1,n))/n
+     mm <- c(rep(1,m))/m
      mm_x <- stats::filter(xx,mm)
      mm_y <- stats::filter(yy,mm)
 
-     F2_xy <- mean((xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))]*(yy-mm_y)[(1+floor(n/2)):(length(yy)-floor(n/2))])
-     F2_xx <- mean((xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))]*(xx-mm_x)[(1+floor(n/2)):(length(xx)-floor(n/2))])
-     F2_yy <- mean((yy-mm_y)[(1+floor(n/2)):(length(yy)-floor(n/2))]*(yy-mm_y)[(1+floor(n/2)):(length(yy)-floor(n/2))])
+     F2_xy <- mean((xx-mm_x)[(1+floor(m/2)):(length(xx)-floor(m/2))]*(yy-mm_y)[(1+floor(m/2)):(length(yy)-floor(m/2))])
+     F2_xx <- mean((xx-mm_x)[(1+floor(m/2)):(length(xx)-floor(m/2))]*(xx-mm_x)[(1+floor(m/2)):(length(xx)-floor(m/2))])
+     F2_yy <- mean((yy-mm_y)[(1+floor(m/2)):(length(yy)-floor(m/2))]*(yy-mm_y)[(1+floor(m/2)):(length(yy)-floor(m/2))])
 
      rho <- F2_xy/sqrt(F2_xx*F2_yy)
      return(rho)
@@ -89,18 +85,24 @@ dmc_SlidingWindows <- function(x1,x2,y,w,k,method,nu){
 
   if(w == N1){
     if(method =='rhodcca'){
-        yx1 <- DCCA::rhodcca(y, x1, m=n, nu=nu)$rhodcca
-        yx2 <- DCCA::rhodcca(y, x2, m=n, nu=nu)$rhodcca
-       x1x2 <- DCCA::rhodcca(x1, x2, m=n, nu=nu)$rhodcca
+        yx1 <- DCCA::rhodcca(y, x1, m, nu=nu)$rhodcca
+        yx2 <- DCCA::rhodcca(y, x2, m, nu=nu)$rhodcca
+       x1x2 <- DCCA::rhodcca(x1,x2, m, nu=nu)$rhodcca
         dmc <- (yx1^2 + yx2^2 - (2*yx1*yx2*x1x2))/(1-x1x2^2)
-      return(list(w = w, timescale=n, dmc=dmc, yx1=yx1, yx2=yx2, x1x2=x1x2))
+      return(list(w = w, method=method, timescale=m, dmc=dmc, yx1=yx1, yx2=yx2, x1x2=x1x2))
       }
     if(method =='dmca'){
-        yx1 <- dmca(y, x1, n)
-        yx2 <- dmca(y, x2, n)
-       x1x2 <- dmca(x1, x2, n)
+
+         yx1 <- c()
+         yx2 <- c()
+        x1x2 <- c()
+        for(i in 1:length(m)){
+        yx1[i] <- dmca(y, x1, m[i])
+        yx2[i] <- dmca(y, x2, m[i])
+       x1x2[i] <- dmca(x1, x2,m[i])
+        }
         dmc <- (yx1^2 + yx2^2 - (2*yx1*yx2*x1x2))/(1-x1x2^2)
-      return(list(w = w, timescale=n, dmc=dmc, yx1=yx1, yx2=yx2, x1x2=x1x2))
+      return(list(w = w, method=method, timescale=m, dmc=dmc, yx1=yx1, yx2=yx2, x1x2=x1x2))
       }
   }
 
@@ -109,33 +111,31 @@ dmc_SlidingWindows <- function(x1,x2,y,w,k,method,nu){
      x1_sw <- SlidingWindows(x1,w)
      x2_sw <- SlidingWindows(x2,w)
      y_sw <- SlidingWindows(y,w)
-     yx1 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(n), byrow = TRUE)
-     yx2 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(n), byrow = TRUE)
-     x1x2 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(n), byrow = TRUE)
-     dmc <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(n), byrow = TRUE)
+      yx1 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(m), byrow = TRUE)
+      yx2 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(m), byrow = TRUE)
+     x1x2 <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(m), byrow = TRUE)
+      dmc <- matrix(data = NA, nrow = nrow(x1_sw), ncol = length(m), byrow = TRUE)
 
      if(method =='rhodcca'){
         for(i in 1:nrow(x1_sw)){
-      		   for(j in 1:length(n)){
-           yx1[i,j]  <- DCCA::rhodcca(y_sw[i,],  x1_sw[i,], m=n[j], nu=nu)$rhodcca
-           yx2[i,j]  <- DCCA::rhodcca(y_sw[i,],  x2_sw[i,], m=n[j], nu=nu)$rhodcca
-           x1x2[i,j] <- DCCA::rhodcca(x1_sw[i,], x2_sw[i,], m=n[j], nu=nu)$rhodcca
-           dmc[i,j]  <- (yx1[i,j]^2 + yx2[i,j]^2-(2*yx1[i,j]*yx2[i,j]*x1x2[i,j]))/(1-x1x2[i,j]^2)
-		   }
-		  }
-	  return(list(w = w, timescale=n, dmc=dmc, yx1 = yx1, yx2 = yx2, x1x2 = x1x2))
+            yx1[i,] <- DCCA::rhodcca(y_sw[i,],  x1_sw[i,], m, nu=nu)$rhodcca
+            yx2[i,] <- DCCA::rhodcca(y_sw[i,],  x2_sw[i,], m, nu=nu)$rhodcca
+           x1x2[i,] <- DCCA::rhodcca(x1_sw[i,], x2_sw[i,], m, nu=nu)$rhodcca
+            dmc[i,]  <- (yx1[i,]^2 + yx2[i,]^2-(2*yx1[i,]*yx2[i,]*x1x2[i,]))/(1-x1x2[i,]^2)
+         }
+	  return(list(w = w, method=method, timescale=m, dmc=dmc, yx1 = yx1, yx2 = yx2, x1x2 = x1x2))
  }
 
  if(method =='dmca'){
         for(i in 1:nrow(x1_sw)){
-      		   for(j in 1:length(n)){
-           yx1[i,j]  <- dmca(y_sw[i,],  x1_sw[i,], n[j])
-           yx2[i,j]  <- dmca(y_sw[i,],  x2_sw[i,], n[j])
-           x1x2[i,j] <- dmca(x1_sw[i,], x2_sw[i,], n[j])
+      	   for(j in 1:length(m)){
+           yx1[i,j]  <- dmca(y_sw[i,],  x1_sw[i,], m[j])
+           yx2[i,j]  <- dmca(y_sw[i,],  x2_sw[i,], m[j])
+           x1x2[i,j] <- dmca(x1_sw[i,], x2_sw[i,], m[j])
            dmc[i,j]  <- (yx1[i,j]^2 + yx2[i,j]^2-(2*yx1[i,j]*yx2[i,j]*x1x2[i,j]))/(1-x1x2[i,j]^2)
-		   }
+		       }
 		  }
-	  return(list(w = w, timescale=n, dmc=dmc, yx1 = yx1, yx2 = yx2, x1x2 = x1x2))
+	  return(list(w = w, method=method, timescale=m, dmc=dmc, yx1 = yx1, yx2 = yx2, x1x2 = x1x2))
    }
  }
 }

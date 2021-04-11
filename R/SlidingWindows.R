@@ -19,7 +19,7 @@
 #' Guedes, E.F. Modelo computacional para análise de movimentos e co-movimentos de mercados financeiros, Ph.D. thesis, Programa de Pós-graduação em Modelagem Computacional e Tecnologia Industrial. Centro Universitário Senai Cimatec, 2019.
 #'
 #' @export
-SlidingWindows <- function(y,w){
+SlidingWindows <- function(y,w=99){
  if(!(is.null(y) || is.numeric(y) || is.logical(y))){
     stop("Time series must be numeric")
 	}

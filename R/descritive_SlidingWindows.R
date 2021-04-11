@@ -16,8 +16,8 @@
 #' @return A list containing "w", "min","max","mean", "median", "standard deviation","skewness" and "kurtosis".
 #'
 #' @examples
-#' y <- rnorm(1000)
-#' descritive_SlidingWindows(rnorm(100), 99, skewness="moment", kurtosis="moment")
+#' y <- rnorm(100)
+#' descritive.SlidingWindows(y, w=99, skewness="moment", kurtosis="moment")
 #'
 #' @importFrom stats median sd
 #' @importFrom PerformanceAnalytics skewness kurtosis
@@ -26,7 +26,7 @@
 #' Guedes, E.F. Modelo computacional para análise de movimentos e co-movimentos de mercados financeiros, Ph.D. thesis, Programa de Pós-graduação em Modelagem Computacional e Tecnologia Industrial. Centro Universitário Senai Cimatec, 2019.
 #'
 #' @export
-    descritive_SlidingWindows <- function(y,w, skewness=c("moment","sample","fisher"), kurtosis=c("moment","sample","fisher", "excess", "sample_excess")){
+    descritive.SlidingWindows <- function(y, w=99, skewness="moment", kurtosis="moment"){
       if(!(is.null(y) || is.numeric(y) || is.logical(y))){
     stop("Time series must be numeric")
       }
